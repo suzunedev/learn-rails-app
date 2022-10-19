@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  db:
+    image: postgres:14.1
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+  app:
+    build: .
+    command: bash -c "rm -rf tmp/pids/server.pid && bin/dev"
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/learn-rails-app
+    environment:
+      - LEARN_RAILS_APP_DEV_DATABASE_PASSWORD=${LEARN_RAILS_APP_DEV_DATABASE_PASSWORD}
+      - LEARN_RAILS_APP_TEST_DATABASE_PASSWORD=${LEARN_RAILS_APP_TEST_DATABASE_PASSWORD}
+    depends_on:
+      - db
