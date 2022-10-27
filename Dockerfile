@@ -1,6 +1,6 @@
 FROM ruby:3.1.0
 
-RUN apt-get update -qq && apt-get install -y postgresql-client
+RUN apt update  && apt install -y postgresql-client
 
 WORKDIR /learn-rails-app
 COPY ./Gemfile /learn-rails-app/Gemfile
